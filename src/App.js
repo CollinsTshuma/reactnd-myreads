@@ -1,10 +1,12 @@
-import React from 'react'
+import React from "react";
 // import * as BooksAPI from './BooksAPI'
-import './App.css'
-import BookShelves from './components/bookshelves'
-import CloseSearch from './components/closesearch'
-import ListBooksTitle from './components/listbookstitle'
-import OpenSearch from './components/opensearch'
+import "./App.css";
+import Book from "./components/book";
+import BookShelves from "./components/bookshelves";
+import CloseSearch from "./components/closesearch";
+import ListBooksTitle from "./components/listbookstitle";
+import OpenSearch from "./components/opensearch";
+
 
 class BooksApp extends React.Component {
   state = {
@@ -16,7 +18,7 @@ class BooksApp extends React.Component {
      */
     showSearchPage: false,
 
-    books : [
+    books: [
       {
         id: 1,
         title: "To Kill a Mockingbird",
@@ -73,7 +75,7 @@ class BooksApp extends React.Component {
           "http://books.google.com/books/content?id=32haAAAAMAAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE72yckZ5f5bDFVIf7BGPbjA0KYYtlQ__nWB-hI_YZmZ-fScYwFy4O_fWOcPwf-pgv3pPQNJP_sT5J_xOUciD8WaKmevh1rUR-1jk7g1aCD_KeJaOpjVu0cm_11BBIUXdxbFkVMdi&source=gbs_api",
         bookshelf: "read",
       },
-    ]
+    ],
   };
 
   render() {
@@ -82,7 +84,7 @@ class BooksApp extends React.Component {
         {this.state.showSearchPage ? (
           <div className="search-books">
             <div className="search-books-bar">
-              <CloseSearch/>
+              <CloseSearch />
               <div className="search-books-input-wrapper">
                 {/*
                   NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -92,27 +94,30 @@ class BooksApp extends React.Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-                <input type="text" placeholder="Search by title or author"/>
-
+                <input type="text" placeholder="Search by title or author" />
               </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid"></ol>
+              <ol className="books-grid">
+                {this.props.books.map((onebook) => (
+                  <Book onebook={onebook} bookshelf="none" key={onebook.id} />
+                ))}
+              </ol>
             </div>
           </div>
         ) : (
           <div className="list-books">
-            <ListBooksTitle/>
+            <ListBooksTitle />
             <div className="list-books-content">
               <div>
                 <BookShelves books={this.state.books} />
               </div>
             </div>
-            <OpenSearch/>
+            <OpenSearch />
           </div>
         )}
       </div>
-    )
+    );
   }
 }
 
