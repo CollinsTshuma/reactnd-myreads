@@ -1,14 +1,11 @@
-import React from "react";
+import React, {Component} from "react";
 
-function CloseSearch() {
-  return (
-    <button
-      className="close-search"
-      onClick={() => this.setState({ showSearchPage: false })}
-    >
-      Close
-    </button>
-  );
+class CloseSearch extends Component{
+    render(){
+        return(
+            <button className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</button>
+        )
+    }
 }
 
 export default CloseSearch;
