@@ -1,4 +1,5 @@
 import React from "react";
+import { Route, Switch } from "react-router-dom";
 // import * as BooksAPI from './BooksAPI'
 import "./App.css";
 import Book from "./components/book";
@@ -6,7 +7,6 @@ import BookShelves from "./components/bookshelves";
 import CloseSearch from "./components/closesearch";
 import ListBooksTitle from "./components/listbookstitle";
 import OpenSearch from "./components/opensearch";
-
 
 class BooksApp extends React.Component {
   state = {
@@ -81,7 +81,8 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        {this.state.showSearchPage ? (
+        <Switch>
+        <Route path="/search">
           <div className="search-books">
             <div className="search-books-bar">
               <CloseSearch />
@@ -97,15 +98,17 @@ class BooksApp extends React.Component {
                 <input type="text" placeholder="Search by title or author" />
               </div>
             </div>
-            <div className="search-books-results">
+             <div className="search-books-results">
               <ol className="books-grid">
-                {this.props.books.map((onebook) => (
+                {this.state.books.map((onebook) => (
                   <Book onebook={onebook} bookshelf="none" key={onebook.id} />
                 ))}
               </ol>
-            </div>
+            </div> 
           </div>
-        ) : (
+          </Route>
+        
+          <Route exact path="/">
           <div className="list-books">
             <ListBooksTitle />
             <div className="list-books-content">
@@ -115,7 +118,8 @@ class BooksApp extends React.Component {
             </div>
             <OpenSearch />
           </div>
-        )}
+          </Route>
+          </Switch>
       </div>
     );
   }
