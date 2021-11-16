@@ -13,7 +13,7 @@ function BookShelves(props) {
       <div >
         {ALL_SHELVES.map((bookshelf) => (
           <li>
-            <BookShelf bookshelf={bookshelf} books={props.books} key={bookshelf.key}/>
+            <BookShelf bookshelf={bookshelf} books={props.books} key={bookshelf.key} shiftBookToShelf={props.shiftBookToShelf}/>
           </li>
         ))}
       </div>

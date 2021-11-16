@@ -78,6 +78,20 @@ class BooksApp extends React.Component {
     ],
   };
 
+  shiftBookToShelf = (onebook, bookshelf) =>{
+    const Book = this.state.books
+    const modifiedBooks = Book.map(book => {
+      if (book.id === onebook.id) {
+        book.bookshelf = bookshelf;
+      }
+      return book;
+    });
+
+    this.setState({
+      books: modifiedBooks,
+    });
+  };
+
   render() {
     return (
       <div className="app">
@@ -101,7 +115,7 @@ class BooksApp extends React.Component {
              <div className="search-books-results">
               <ol className="books-grid">
                 {this.state.books.map((onebook) => (
-                  <Book onebook={onebook} bookshelf="none" key={onebook.id} />
+                  <Book onebook={onebook} bookshelf="none" key={onebook.id} shiftBookToShelf={this.shiftBookToShelf}/>
                 ))}
               </ol>
             </div> 
@@ -113,7 +127,7 @@ class BooksApp extends React.Component {
             <ListBooksTitle />
             <div className="list-books-content">
               <div>
-                <BookShelves books={this.state.books} />
+                <BookShelves books={this.state.books} shiftBookToShelf={this.shiftBookToShelf}/>
               </div>
             </div>
             <OpenSearch />

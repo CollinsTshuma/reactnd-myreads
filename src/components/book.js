@@ -1,8 +1,7 @@
 import React from "react";
+import ShelfChanger from "./shelfchanger";
 
 function Book(props) {
-
-  const propBookShelf = props.bookshelf;
   return (
     <div className="book">
       <div className="book-top">
@@ -14,17 +13,11 @@ function Book(props) {
             backgroundImage: `url(${props.onebook.imageurl})`,
           }}
         />
-        <div className="book-shelf-changer">
-          <select value={propBookShelf}>
-            <option value="move" disabled>
-              Move to...
-            </option>
-            <option value="currentlyReading">Currently Reading</option>
-            <option value="wantToRead">Want to Read</option>
-            <option value="read">Read</option>
-            <option value="none">None</option>
-          </select>
-        </div>
+        <ShelfChanger
+          onebook={props.onebook}
+          bookshelf={props.bookshelf}
+          shiftBookToShelf={props.shiftBookToShelf}
+        />
       </div>
       <div className="book-title">{props.onebook.title}</div>
       <div className="book-authors">{props.onebook.author}</div>

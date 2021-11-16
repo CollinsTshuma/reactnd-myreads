@@ -1,6 +1,6 @@
 import React from "react";
 
-function SearchBooks(){
+function SearchBooks(props){
         return (
           <div className="search-books">
             <SearchBar />

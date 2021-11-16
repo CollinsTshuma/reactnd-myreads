@@ -16,6 +16,7 @@ function BookShelf(props) {
                   onebook={onebook}
                   bookshelf={props.bookshelf.key}
                   key={onebook.id}
+                  shiftBookToShelf={props.shiftBookToShelf}
                 />
               </li>
             ))}
