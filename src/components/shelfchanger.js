@@ -4,7 +4,7 @@ class ShelfChanger extends Component {
   state = {
     value: this.props.bookshelf,
   };
-  
+
   manageModification = (e) => {
     const { shiftBookToShelf, onebook } = this.props;
     this.setState({ value: e.target.value });
@@ -13,7 +13,7 @@ class ShelfChanger extends Component {
 
   render() {
     const { value } = this.state;
-    const {manageModification}= this;
+    const { manageModification } = this;
     return (
       <div className="book-shelf-changer">
         <select value={value} onChange={manageModification}>

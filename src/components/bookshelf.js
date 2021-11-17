@@ -5,17 +5,16 @@ function BookShelf(props) {
   
   return (
     <div className="bookshelf">
-      <h2 className="bookshelf-title">{props.bookshelf.moniker}</h2>
+      <h2 className="bookshelf-title">{props.shelf.moniker}</h2>
       <div className="bookshelf-books">
         <ol className="books-grid">
           {props.books
-            .filter((onebook) => onebook.bookshelf === props.bookshelf.key)
+            .filter((onebook) => onebook.shelf === props.shelf.key)
             .map((onebook) => (
-              <li>
+              <li key={onebook.id}>
                 <Book
                   onebook={onebook}
-                  bookshelf={props.bookshelf.key}
-                  key={onebook.id}
+                  bookshelf={props.shelf.key}
                   shiftBookToShelf={props.shiftBookToShelf}
                 />
               </li>

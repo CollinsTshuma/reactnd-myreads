@@ -1,14 +1,14 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
-class CloseSearch extends Component {
-  render() {
-    return (
-      <Link to="/">
-        <button className="close-search">Close</button>
-      </Link>
-    );
-  }
+function CloseSearch(props) {
+  return (
+    <Link to="/">
+      <button className="close-search" onClick={props.onReconstituteSearch}>
+        Close
+      </button>
+    </Link>
+  );
 }
 
 export default CloseSearch;
