@@ -30,33 +30,16 @@ class BooksApp extends React.Component {
     });
   };
 
-  shiftBookToShelf = (onebook, bookshelf) => {
-    BooksAPI.update(onebook, bookshelf).then((books) => {
-      console.log(books);
-    });
-
-    const Book = this.state.books;
-    const modifiedBooks = Book.map((book) => {
-      if (book.id === onebook.id) {
-        book.bookshelf = bookshelf;
-      }
-      return book;
-    });
-
-    this.setState({
-      books: modifiedBooks,
-    });
-  };
-
   lookForBooks = debounce(250, false, (query) => {
-    console.log(query);
     if (query.length > 0) {
       BooksAPI.search(query).then((books) => {
-        console.log(books);
-        if (books.error) {
-          this.setState({ seekBooks: [] });
-        } else {
-          this.setState({ seekBooks: books });
+        const expr = books.error;
+        switch (expr) {
+          case "One":
+            this.setState({ seekBooks: [] });
+            break;
+          default:
+            this.setState({ seekBooks: books });
         }
       });
     } else {
@@ -66,6 +49,23 @@ class BooksApp extends React.Component {
 
   reconstituteSearch = () => {
     this.setState({ seekBooks: [] });
+  };
+
+  shiftBookToShelf = (onebook, shelf) => {
+    BooksAPI.update(onebook, shelf);
+
+    let modifiedBooks = [];
+    const { books } = this.state;
+    modifiedBooks = books.filter((bookz) => bookz.id !== onebook.id);
+
+    if (shelf !== "none") {
+      onebook.shelf = shelf;
+      modifiedBooks = modifiedBooks.concat(onebook);
+    }
+
+    this.setState({
+      books: modifiedBooks,
+    });
   };
 
   render() {
@@ -80,14 +80,24 @@ class BooksApp extends React.Component {
               </div>
               <div className="search-books-results">
                 <ol className="books-grid">
-                  {this.state.seekBooks.map((onebook) => (
-                    <Book
-                      onebook={onebook}
-                      bookshelf="none"
-                      key={onebook.id}
-                      shiftBookToShelf={this.shiftBookToShelf}
-                    />
-                  ))}
+                  {this.state.seekBooks
+                    .map((onebook) => {
+                      this.state.books.map((book) => {
+                        if (book.id === onebook.id) {
+                          onebook.shelf = book.shelf;
+                        }
+                        return book;
+                      });
+                      return onebook;
+                    })
+                    .map((onebook) => (
+                      <Book
+                        onebook={onebook}
+                        key={onebook.id}
+                        shiftBookToShelf={this.shiftBookToShelf}
+                        bookshelf={onebook.shelf ? onebook.shelf : "none"}
+                      />
+                    ))}
                 </ol>
               </div>
             </div>
