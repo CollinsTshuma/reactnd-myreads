@@ -10,7 +10,7 @@ function Book(props) {
           style={{
             width: 128,
             height: 193,
-            backgroundImage: `url(${props.onebook.imageLinks.thumbnail})`,
+            backgroundImage: `url(${props.onebook.imageLinks && props.onebook.imageLinks.thumbnail})`,
           }}
         />
         <ShelfChanger
@@ -20,7 +20,7 @@ function Book(props) {
         />
       </div>
       <div className="book-title">{props.onebook.title}</div>
-      <div className="book-authors">{props.onebook.authors}</div>
+      <div className="book-authors">{props.onebook.authors && props.onebook.authors.join(', ')}</div>
     </div>
   );
 }

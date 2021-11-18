@@ -33,13 +33,10 @@ class BooksApp extends React.Component {
   lookForBooks = debounce(250, false, (query) => {
     if (query.length > 0) {
       BooksAPI.search(query).then((books) => {
-        const expr = books.error;
-        switch (expr) {
-          case "One":
-            this.setState({ seekBooks: [] });
-            break;
-          default:
-            this.setState({ seekBooks: books });
+        if (books.error) {
+          this.setState({ seekBooks: [] });
+        } else {
+          this.setState({ seekBooks: books });
         }
       });
     } else {
