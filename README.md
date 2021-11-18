@@ -13,8 +13,8 @@ It also allow you to search for books based on title and author.
 Clone the repository, change directories, and use NPM to install the dependencies.
 
 
-git clone https://github.com/CollinsTshuma/reactnd-myreads-project.git
-- cd reactnd-myreads-project
+git clone https://github.com/CollinsTshuma/reactnd-myreads.git
+- cd reactnd-myreads
 - npm install
 
 ## Usage
